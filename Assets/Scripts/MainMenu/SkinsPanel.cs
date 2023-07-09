@@ -39,7 +39,7 @@ namespace MainMenu
                 {
                     SkinCell newCell = Instantiate(skinCellPrefab, tableView).GetComponent<SkinCell>();
 
-                    newCell.SetSkin(skin, SetActiveSkin);
+                    newCell.SetSkin(m_SkinsService, skin, SetActiveSkin);
 
                     newCell.SyncLock(m_ProgressService.CurrentProgressLevel);
 

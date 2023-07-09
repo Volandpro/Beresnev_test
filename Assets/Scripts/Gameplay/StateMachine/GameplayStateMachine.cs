@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using Gameplay.Chip;
@@ -13,7 +15,7 @@ namespace Gameplay.StateMachine
     {
         #region Private variables
 
-        private IState m_ActiveState;
+        IState? m_ActiveState = null;
 
         private readonly Dictionary<Type, IState> m_States;
 
@@ -59,8 +61,14 @@ namespace Gameplay.StateMachine
         public void Enter<TState>()
         {
             m_ActiveState?.Exit();
-            m_ActiveState = m_States[typeof(TState)];
-            m_ActiveState?.Enter();
+            if (m_States.TryGetValue(typeof(TState), out m_ActiveState))
+            {
+                m_ActiveState.Enter();
+            }
+            else
+            {
+                throw new ArgumentException($"State {typeof(TState).FullName} not binded");
+            }
         }
 
         #endregion

@@ -32,21 +32,10 @@ namespace GlobalServices.Skins
 
         #region Public methods
 
-        public void SetActiveSkin(SkinScriptableObject _Skin, bool _Save = true)
+        public void SetActiveSkin(SkinScriptableObject _Skin)
         {
-            if (ActiveSkin != null)
-            {
-                ActiveSkin.IsActive = false;
-            }
-
-            _Skin.IsActive = true;
-
             ActiveSkin = _Skin;
-
-            if (_Save)
-            {
-                m_SaveLoadService.Save();
-            }
+            m_SaveLoadService.Save();
         }
 
         public int GetMaxSkinLevel()
@@ -91,11 +80,7 @@ namespace GlobalServices.Skins
             {
                 if (currentSkinId == skin.Id)
                 {
-                    SetActiveSkin(skin, false);
-                }
-                else
-                {
-                    skin.IsActive = false;
+                    ActiveSkin = skin;
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace GlobalServices
     {
         #region Constants
 
-        private const string SCORE_PATH = "Score";
+        private const string SCORE_PREFS_KEY = "Score";
 
         #endregion
 
@@ -78,12 +78,12 @@ namespace GlobalServices
 
         private void LoadScore()
         {
-            MaxScore = PlayerPrefs.GetInt(SCORE_PATH, 0);
+            MaxScore = PlayerPrefs.GetInt(SCORE_PREFS_KEY, 0);
         }
 
         private void SaveScore()
         {
-            PlayerPrefs.SetInt(SCORE_PATH, MaxScore);
+            PlayerPrefs.SetInt(SCORE_PREFS_KEY, MaxScore);
         }
 
         #endregion

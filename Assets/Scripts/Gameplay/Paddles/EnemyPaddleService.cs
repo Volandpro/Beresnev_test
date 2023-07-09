@@ -1,5 +1,4 @@
 using System;
-using DG.Tweening;
 using Gameplay.Chip;
 using UnityEngine;
 using VContainer;
@@ -34,6 +33,7 @@ namespace Gameplay.Paddles
 
         public Vector3 GetVelocityFor(Transform _TR)
         {
+            m_ErrorModifier = Mathf.Sin(Time.time * ERROR_TIME) * ERROR_VALUE;
             Vector3 position       = _TR.position + Vector3.right * m_ErrorModifier;
             Vector3 targetPosition = new Vector3(m_Chip.transform.position.x, position.y, position.z);
 
@@ -57,10 +57,6 @@ namespace Gameplay.Paddles
 
         void IStartable.Start()
         {
-            Sequence s = DOTween.Sequence();
-            s.Append(DOVirtual.Float(-ERROR_VALUE, ERROR_VALUE, ERROR_TIME, _M => m_ErrorModifier = _M))
-             .Append(DOVirtual.Float(ERROR_VALUE, -ERROR_VALUE, ERROR_TIME, _M => m_ErrorModifier = _M))
-             .SetLoops(-1);
         }
 
         #endregion

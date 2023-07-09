@@ -9,16 +9,16 @@ namespace GlobalServices
     {
         #region Public methods
 
-        public void Load(int _SceneId, Action _OnLoaded = null)
+        public Task Load(int _SceneId, Action _OnLoaded = null)
         {
-            LoadScene(_SceneId, _OnLoaded);
+           return LoadScene(_SceneId, _OnLoaded);
         }
 
         #endregion
 
         #region Private methods
 
-        private async void LoadScene(int _SceneId, Action _OnLoaded = null)
+        private async Task LoadScene(int _SceneId, Action _OnLoaded = null)
         {
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(_SceneId);
 

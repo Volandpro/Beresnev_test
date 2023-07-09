@@ -15,10 +15,10 @@ namespace Boot
 
         #region Private methods
 
-        private void Start()
+        private async void Start()
         {
             m_SaveLoadService.Load();
-            m_SceneLoaderService.Load(1);
+            await m_SceneLoaderService.Load(1);
         }
 
         #endregion

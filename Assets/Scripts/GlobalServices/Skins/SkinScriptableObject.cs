@@ -23,7 +23,5 @@ namespace GlobalServices.Skins
 
         [field: SerializeField]
         public int NeededLevel { get; private set; }
-
-        public bool IsActive { get; set; }
     }
 }
