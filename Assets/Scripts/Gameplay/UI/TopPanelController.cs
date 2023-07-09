@@ -1,3 +1,4 @@
+using System;
 using Gameplay.StateMachine;
 using Gameplay.StateMachine.States;
 using GlobalServices;
@@ -31,10 +32,19 @@ namespace Gameplay.UI
 
         #region Private methods
 
+        private void SetScore(int _Score)
+        {
+            scoreLabel.text = $"Current Score {_Score.ToString()}/ Max Score {m_ScoreService.MaxScore.ToString()}";
+        }
+
         private void Start()
         {
-            m_ScoreService.OnCurrentScoreChanged += _Score =>
-                scoreLabel.text = $"Current Score {_Score.ToString()}/ Max Score {m_ScoreService.MaxScore.ToString()}";
+            m_ScoreService.OnCurrentScoreChanged += SetScore;
+        }
+
+        private void OnDestroy()
+        {
+            m_ScoreService.OnCurrentScoreChanged -= SetScore;
         }
 
         #endregion

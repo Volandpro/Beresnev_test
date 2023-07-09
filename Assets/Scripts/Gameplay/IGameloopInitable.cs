@@ -1,14 +1,7 @@
-﻿using System;
-
-namespace Gameplay
+﻿namespace Gameplay
 {
     public interface IGameloopInitable
     {
-        #region Public properties
-
-        Action OnInit { get; set; }
-
-        #endregion
 
         #region Public methods
 

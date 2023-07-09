@@ -14,37 +14,35 @@ namespace Gameplay.Paddles
 
         #region Public properties
 
-        public bool Enabled { get; set; }
+        public bool Enabled { private get; set; }
 
         #endregion
 
         #region Public methods
 
-        public Vector3 GetVelocityFor(Transform _TR)
+        public Vector3 GetVelocityFor(Transform _Paddle)
         {
             if (!Enabled)
             {
-                return _TR.position;
+                return Vector3.zero;
             }
-            else
-            {
-                Vector3 worldMousePosition = m_Camera != null
-                    ? m_Camera.ScreenToWorldPoint(
-                            new Vector3(
-                                    Input.mousePosition.x,
-                                    Input.mousePosition.y,
-                                    _TR.position.z - m_Camera.transform.position.z
-                                )
-                        )
-                    : _TR.position;
 
-                Vector3 position       = _TR.position;
-                Vector3 targetPosition = new Vector3(worldMousePosition.x, position.y, position.z);
+            Vector3 worldMousePosition = m_Camera != null
+                ? m_Camera.ScreenToWorldPoint(
+                        new Vector3(
+                                Input.mousePosition.x,
+                                Input.mousePosition.y,
+                                _Paddle.position.z - m_Camera.transform.position.z
+                            )
+                    )
+                : _Paddle.position;
 
-                float deltaX = targetPosition.x - position.x;
+            Vector3 position       = _Paddle.position;
+            Vector3 targetPosition = new(worldMousePosition.x, position.y, position.z);
 
-                return Mathf.Abs(deltaX) > 0 ? Vector3.right * deltaX / Time.fixedDeltaTime : Vector3.zero;
-            }
+            float deltaX = targetPosition.x - position.x;
+
+            return Mathf.Abs(deltaX) > 0 ? Vector3.right * deltaX / Time.fixedDeltaTime : Vector3.zero;
         }
 
         #endregion

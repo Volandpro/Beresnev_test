@@ -14,8 +14,9 @@ namespace MainMenu
         [SerializeField] private TMP_Text   activeStatus;
         [SerializeField] private Image      skinImage;
 
-        private SkinScriptableObject         m_Skin;
-        private Action<SkinScriptableObject> m_OnClick;
+        private          SkinScriptableObject         m_Skin;
+        private          Action<SkinScriptableObject> m_OnClick;
+        private SkinsService                 m_skinsService;
 
         #endregion
 
@@ -28,7 +29,7 @@ namespace MainMenu
 
         public void SyncActive()
         {
-            activeStatus.text = m_Skin.IsActive ? "Active" : "Inactive";
+            activeStatus.text = m_Skin == m_skinsService.ActiveSkin ? "Active" : "Inactive";
         }
 
         public void OnCellClicked()
@@ -36,10 +37,15 @@ namespace MainMenu
             m_OnClick?.Invoke(m_Skin);
         }
 
-        public void SetSkin(SkinScriptableObject _Skin, Action<SkinScriptableObject> _OnClick = null)
+        public void SetSkin(
+                SkinsService                 _SkinsService,
+                SkinScriptableObject         _Skin,
+                Action<SkinScriptableObject> _OnClick = null
+            )
         {
-            m_Skin    = _Skin;
-            m_OnClick = _OnClick;
+            m_skinsService = _SkinsService;
+            m_Skin         = _Skin;
+            m_OnClick      = _OnClick;
 
             skinImage.sprite = _Skin.Sprite;
 

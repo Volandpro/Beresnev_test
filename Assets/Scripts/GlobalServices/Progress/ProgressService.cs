@@ -32,6 +32,8 @@ namespace GlobalServices.Progress
 
         public int MaxProgressLevel => m_SkinsService.GetMaxSkinLevel();
 
+        public int MaximumProgress => 100;
+
         public int CurrentProgress
         {
             get => m_CurrentProgress;
@@ -39,17 +41,18 @@ namespace GlobalServices.Progress
             {
                 m_CurrentProgress = value;
 
-                if (m_CurrentProgress >= 100)
+                int maximumProgress = MaximumProgress;
+                if (m_CurrentProgress >= maximumProgress)
                 {
                     if (CurrentProgressLevel < MaxProgressLevel)
                     {
                         CurrentProgressLevel++;
                         HasNewLevel       = true;
-                        m_CurrentProgress = CurrentProgressLevel == MaxProgressLevel ? 100 : 0;
+                        m_CurrentProgress = CurrentProgressLevel == MaxProgressLevel ? maximumProgress : 0;
                     }
                     else
                     {
-                        m_CurrentProgress = 100;
+                        m_CurrentProgress = maximumProgress;
                     }
                 }
             }

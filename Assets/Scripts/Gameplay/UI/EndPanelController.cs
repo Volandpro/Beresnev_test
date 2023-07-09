@@ -49,7 +49,7 @@ namespace Gameplay.UI
             currentProgressLabel.text      = $"Current Level {m_ProgressService.CurrentProgressLevel.ToString()}";
             maxProgressLabel.text          = $"Max Level {m_ProgressService.MaxProgressLevel.ToString()}";
             progressSliderLabel.text       = m_ProgressService.CurrentProgress.ToString();
-            progressSliderImage.fillAmount = m_ProgressService.CurrentProgress / 100f;
+            progressSliderImage.fillAmount = m_ProgressService.CurrentProgress / (float)m_ProgressService.MaximumProgress;
 
             newSkinLabel.SetActive(m_ProgressService.HasNewLevel);
         }
